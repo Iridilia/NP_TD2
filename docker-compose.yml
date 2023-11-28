@@ -6,6 +6,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: mdp
+      //
 
     ports:
       - '5432:5432'
