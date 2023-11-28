@@ -15,3 +15,7 @@ services:
 
   php:
     image: 'php:latest'
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      -  postgres
