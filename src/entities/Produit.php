@@ -1,15 +1,38 @@
 <?php
-
 namespace catadoct\catalog\entities;
 
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
+
+#[Entity]
+#[Table(name: "produit")]
 class Produit
 {
-    private $id;
-    private $numero;
-    private $libelle;
-    private $description;
-    private $image;
-    private $categorie_id;
+    #[Id]
+    #[Column(type: Types::INTEGER)]
+    #[GeneratedValue(strategy: "AUTO")]
+    private int $id;
+
+    #[Column( type: Types::INTEGER)]
+    private string $numero;
+
+    #[Column(name: "libelle",
+        type: Types::STRING,
+        length: 64)]
+    private string $libelle;
+
+    #[Column( type: Types::TEXT)]
+    private string $description;
+
+    #[Column( type: Types::TEXT)]
+    private string $image;
+
+    #[ManyToOne(targetEntity: Categorie::class)]
+    #[JoinColumn(name: "categorie_id", referencedColumnName: "id")]
+    private ?Categorie $categorie = null;
 
     public function __construct($id, $numero, $libelle, $description, $image, $categorie_id)
     {
