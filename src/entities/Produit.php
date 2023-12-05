@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 #[Entity]
 #[Table(name: "produit")]
@@ -19,15 +21,15 @@ class Produit
     #[Column( type: Types::INTEGER)]
     private string $numero;
 
-    #[Column(name: "libelle",
-        type: Types::STRING,
-        length: 64)]
+    #[Column(type: Types::VARCHAR)]
     private string $libelle;
 
-    #[Column( type: Types::TEXT)]
+    #[Column( type: Types::TEXT,
+    nullable: true)]
     private string $description;
 
-    #[Column( type: Types::TEXT)]
+    #[Column( type: Types::VARCHAR,
+    nullable:true)]
     private string $image;
 
     #[ManyToOne(targetEntity: Categorie::class)]
