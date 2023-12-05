@@ -20,4 +20,8 @@ class Produit
         $this->image = $image;
         $this->categorie_id = $categorie_id;
     }
+
+    public function setLibelle($libelle) {
+        $this->libelle = $libelle;
+    }
 }
