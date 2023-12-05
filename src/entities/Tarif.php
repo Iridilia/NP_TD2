@@ -24,4 +24,13 @@ class Tarif
     #[ManyToOne(targetEntity: Taille::class)]
     #[JoinColumn(name: "taille_id", referencedColumnName: "id")]
     private ?Taille $lieu = null;
+
+    public function __construct($id, $tarif, $produit_id, $taille_id)
+    {
+        $this->id = $id;
+        $this->tarif = $tarif;
+        $this->produit_id = $produit_id;
+
+        $this->taille_id = $taille_id;
+    }
 }
