@@ -1,33 +1,26 @@
-# Questions :
-## 1. afficher le produit d'identifiant 4 : id, numéro, libellé, description, image.
-SELECT id, numero, libelle, description, image
-FROM produit
-WHERE id = 4;
+# Nouveaux Paradigmes de Bases de Données
+## TD 2 : Utiliser l'ORM Doctrine
+**Objectif :** Maitriser l'ORM Doctrine pour une utilisation courante
 
-## 2. afficher la catégorie 5.
-SELECT *
-FROM categorie
-WHERE id = 5;
+*Par Sarah Chrusciel, Julie Despré et Matthéo Termine*
 
-## 3. compléter le script 1.1 pour afficher la catégorie du produit.
-SELECT produit.id, numero, libelle, description, image, categorie.libelle AS categorie
-FROM produit
-INNER JOIN categorie ON produit.categorie_id = categorie.id
-WHERE produit.id = 4;
 
-## 4. Afficher tous les produits de la catégorie 5.
-SELECT *
-FROM produit
-WHERE categorie_id = 5;
+### Lancement du projet :
+à la racine du projet :
+```bash
+docker compose up -d
+```
+à l'intérieur du container :
+```bash
+composer install
+```
 
-## 5. Créer un produit et le relier à la catégorie 5, faire en sorte qu'il soit sauvegardé dans la base.
-INSERT INTO produit (numero, libelle, description, image, categorie_id)
-VALUES (11, '4 fromages', '4 Fromages', 'URL image 4 fromages', 5);
+### Connexion à Adminer :
+aller sur localhost:8081
+- Serveur : td-doctrine.db
+- Utilisateur : user
+- Mot de passe : password
+- Base de données : td2
 
-## 6. Modifier ce produit et mettre à jour la base.
-UPDATE produit 
-SET libelle = 'Produit modifié', description = 'Description modifiée', image = 'URL de l'image modifiée'
-WHERE id = 11;
-## 7. Supprimer ce produit et mettre à jour la base.
-DELETE FROM produit 
-WHERE id = 11;
+si vous n'arrivez pas à vous connecter, vérifiez si le fichier .env a été modifié, si oui copier les données
+correspondantes

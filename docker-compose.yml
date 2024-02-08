@@ -1,25 +1,40 @@
 version: '3.0'
-
+networks:
+  td-doctrine:
+    driver: bridge
 services:
-  db:
-    image: 'postgres:latest'
-    environment:
-      POSTGRES_USER: 'user'
-      POSTGRES_PASSWORD: 'mdp'
-    ports:
-      - '5432:5432'
-
   adminer:
     image: adminer
     ports:
-      - '8080:8080'
+      - '8081:8080'
+    networks:
+      - td-doctrine
 
-  php:
-    image: 'php:latest'
+  td-doctrine.db:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - '2780:80'
-      - '2743:443'
+      - '5432:5432'
+    networks:
+      - td-doctrine
     volumes:
-      - ./src:/var/www/html
+      - ./sql:/var/sql
+
+  td-doctrine-php:
+    image: 'canals/php:8.2'
+    env_file:
+      - ./.env
+    ports:
+      - '8080:80'
+    volumes:
+      - ./public:/var/www/html
+      - ./:/var/www
+    networks:
+      td-doctrine:
+        aliases:
+          - td-doctrine.local
     depends_on:
-      -  db
+      - td-doctrine.db
